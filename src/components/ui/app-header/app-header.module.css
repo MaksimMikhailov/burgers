@@ -35,3 +35,21 @@
   align-items: center;
   margin: 0 auto;
 }
+
+.noactive {
+  display: flex;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-decoration: none;
+  color: #8585ad;
+}
+.noactive svg {
+  fill: #8585ad;
+}
+.active {
+  color: #f2f2f3;
+}
+.active svg {
+  fill: #f2f2f3;
+}
