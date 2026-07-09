@@ -5,15 +5,11 @@ import { useSelector } from '../../services/store';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const { ingredients, bun } = useSelector((state) => state.constructor);
+  const { ingredients, bun } = useSelector((state) => state.burgerConstructor);
   const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
+    bun,
+    ingredients
   };
-  console.log(ingredients);
-  console.log(bun);
   const orderRequest = false;
 
   const orderModalData = null;

@@ -1,11 +1,11 @@
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TIngredient } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { stat } from 'fs';
 import reducer from './ingredientsSlice';
 
 interface IInitialState {
-  ingredients: TIngredient[];
+  ingredients: TConstructorIngredient[];
   bun: TIngredient | null;
 }
 const initialState: IInitialState = {
@@ -14,7 +14,7 @@ const initialState: IInitialState = {
 };
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredients: {
@@ -22,14 +22,14 @@ const constructorSlice = createSlice({
         if (action.payload.type === 'bun') {
           state.bun = action.payload;
         } else {
-          state.ingredients.push(action.payload);
+          state.ingredients.push(action.payload as TConstructorIngredient);
         }
       },
       prepare(ingredient: TIngredient) {
         if (ingredient.type === 'bun') {
           return { payload: ingredient };
         } else {
-          return { payload: { ...ingredient, _id: Date.now().toString() } };
+          return { payload: { ...ingredient, id: Date.now().toString() } };
         }
       }
     },

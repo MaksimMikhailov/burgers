@@ -8,7 +8,6 @@ import { useDispatch } from '../../services/store';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
-    console.log(ingredient);
     const dispatch = useDispatch();
     const location = useLocation();
 
