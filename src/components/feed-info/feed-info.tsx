@@ -12,11 +12,8 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
 
 export const FeedInfo: FC = () => {
   /** TODO: взять переменные из стора */
-
   const { feed } = useSelector((state) => state.feed);
-
   const readyOrders = getOrders(feed.orders, 'done');
-
   const pendingOrders = getOrders(feed.orders, 'pending');
 
   return (

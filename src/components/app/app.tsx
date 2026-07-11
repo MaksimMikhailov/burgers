@@ -12,7 +12,14 @@ import {
 
 import styles from './app.module.css';
 
-import { AppHeader, IngredientDetails, Modal, ProfileMenu } from '@components';
+import {
+  AppHeader,
+  FeedInfo,
+  IngredientDetails,
+  Modal,
+  OrderInfo,
+  ProfileMenu
+} from '@components';
 import { Preloader } from '@ui';
 import {
   Link,
@@ -36,7 +43,7 @@ const App = () => {
   const error = null;
   const navigate = useNavigate();
   function handleModalClose() {
-    navigate('/');
+    navigate(-1);
   }
 
   const dispatch = useDispatch();
@@ -57,6 +64,7 @@ const App = () => {
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/profile-orders' element={<ProfileOrders />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route path='/feed/:id' element={<OrderInfo />} />
           <Route path='*' element={<NotFound404 />} />
         </Routes>
         {background && (
@@ -66,6 +74,14 @@ const App = () => {
               element={
                 <Modal onClose={handleModalClose} title='Детали ингредиента'>
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path='/feed/:id'
+              element={
+                <Modal onClose={handleModalClose} title='Детали заказа'>
+                  <OrderInfo />
                 </Modal>
               }
             />
