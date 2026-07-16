@@ -32,6 +32,7 @@ import {
 import { useEffect } from 'react';
 import { useDispatch } from '../../../src/services/store';
 import { fetchIngredients } from '../../../src/services/slices/ingredientsSlice';
+import { ProtectedRoute } from '../protected-route';
 
 const App = () => {
   /** TODO: взять переменные из стора */
@@ -49,20 +50,24 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchIngredients());
-  });
+  }, []);
   return (
     <>
       <div className={styles.app}>
         <AppHeader />
         <Routes location={background || location}>
+          <Route element={<ProtectedRoute onlyUnAuth />}>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+          </Route>
+          <Route element={<ProtectedRoute />}>
+            <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile-orders' element={<ProfileOrders />} />
+          </Route>
           <Route path='/' element={<ConstructorPage />} />
-          <Route path='/profile' element={<Profile />} />
           <Route path='/feed' element={<Feed />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/forgot-password' element={<ForgotPassword />} />
-          <Route path='/reset-password' element={<ResetPassword />} />
-          <Route path='/profile-orders' element={<ProfileOrders />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='/feed/:id' element={<OrderInfo />} />
           <Route path='*' element={<NotFound404 />} />
