@@ -9,37 +9,21 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-
 import styles from './app.module.css';
-
-import {
-  AppHeader,
-  FeedInfo,
-  IngredientDetails,
-  Modal,
-  OrderInfo,
-  ProfileMenu
-} from '@components';
-import { Preloader } from '@ui';
-import {
-  Link,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate
-} from 'react-router-dom';
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../../src/services/store';
 import { fetchIngredients } from '../../../src/services/slices/ingredientsSlice';
 import { ProtectedRoute } from '../protected-route';
+import { fetchUserApi } from '../../services/slices/authSlice';
 
 const App = () => {
   /** TODO: взять переменные из стора */
-  const isIngredientsLoading = false;
+
   const location = useLocation();
   const background = location.state?.background;
-  console.log(location);
+
   const ingredients = [];
   const error = null;
   const navigate = useNavigate();
@@ -50,6 +34,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchUserApi());
   }, []);
   return (
     <>
@@ -64,7 +49,8 @@ const App = () => {
           <Route element={<ProtectedRoute />}>
             <Route path='/reset-password' element={<ResetPassword />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/profile-orders' element={<ProfileOrders />} />
+            <Route path='/profile/orders' element={<ProfileOrders />} />
+            <Route path='/profile/orders/:id' element={<OrderInfo />} />
           </Route>
           <Route path='/' element={<ConstructorPage />} />
           <Route path='/feed' element={<Feed />} />
@@ -84,6 +70,14 @@ const App = () => {
             />
             <Route
               path='/feed/:id'
+              element={
+                <Modal onClose={handleModalClose} title='Детали заказа'>
+                  <OrderInfo />
+                </Modal>
+              }
+            />
+            <Route
+              path='/profile/orders/:id'
               element={
                 <Modal onClose={handleModalClose} title='Детали заказа'>
                   <OrderInfo />

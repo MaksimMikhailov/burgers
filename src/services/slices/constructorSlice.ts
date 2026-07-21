@@ -1,8 +1,5 @@
-import { getIngredientsApi } from '@api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
-import { stat } from 'fs';
-import reducer from './ingredientsSlice';
 
 interface IInitialState {
   ingredients: TConstructorIngredient[];
