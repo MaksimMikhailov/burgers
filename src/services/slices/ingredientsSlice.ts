@@ -16,6 +16,7 @@ export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchIngredients',
   async () => await getIngredientsApi()
 );
+
 const ingredietnsSlice = createSlice({
   name: 'Ingredients',
   initialState,
